@@ -1,5 +1,6 @@
 #include "generator.h"
 #include <iostream>
+#include <chrono>
 
 using namespace std;
 
@@ -24,25 +25,35 @@ int* insertion(int tab[], int n)
 
 int main()
 {
-  const int n=9;
+  const int n=10000;
   char shape;
   int numbers[n];
 
-  cin>>shape;
+  do
+  {
+    cin>>shape;
 
-  mgenerate(numbers, n, shape);
+    if(shape!='q')
+    {
+      mgenerate(numbers, n, shape);
 
-  cout<<"generated: ";
-  for (int i=0; i<n; i++)
-      cout << numbers[i] <<" ";
-  cout<<endl;
+      /*cout<<"generated: ";
+      for (int i=0; i<n; i++)
+          cout << numbers[i] <<" ";
+      cout<<endl;*/
 
-  insertion(numbers, n);
+      auto start = chrono::steady_clock::now();
+      insertion(numbers, n);
+      auto end = chrono::steady_clock::now();
 
-  cout<<"sorted: ";
-  for (int i=0; i<n; i++)
-      cout << numbers[i] <<" ";
-  cout<<endl;
+      /*cout<<"sorted: ";
+      for (int i=0; i<n; i++)
+          cout << numbers[i] <<" ";
+      cout<<endl;*/
 
+      cout << "Elapsed time: " << chrono::duration_cast<chrono::milliseconds>(end - start).count()
+  	<< " ms" << endl;
+    }
+  }while (shape !='q');
   return 0;
 }
