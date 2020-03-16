@@ -1,6 +1,7 @@
 #include "generator.h"
 #include <iostream>
 #include <chrono>
+#include <fstream>
 
 using namespace std;
 
@@ -44,15 +45,16 @@ void heap(int tab[], int heapsize)
 
 int main()
 {
-  const int n = 100000;
-  // int numbers[7]={2,5,1,3,6,7,4};
+  int n = 1000;
   char shape;
-  int numbers[n];
+  int numbers[10000];
+  fstream file;
 
+  cin>>shape;
+
+  file.open("heap.txt", ios::out);
   do
   {
-    cin>>shape;
-
     if(shape!='q')
     {
       mgenerate(numbers, n, shape);
@@ -66,14 +68,16 @@ int main()
       heap(numbers, n);
       auto end = chrono::steady_clock::now();
 
-      /*cout<<"sorted: ";
-      for (int i=0; i<n; i++)
-          cout << numbers[i] <<" ";
-      cout<<endl;*/
-
-      cout << "Elapsed time: " << chrono::duration_cast<chrono::milliseconds>(end - start).count()
-  	<< " ms" << endl;
+    //   cout<<"sorted: ";
+    //   for (int i=0; i<n; i++)
+    //       cout << numbers[i] <<" ";
+    //   cout<<endl;
+    //
+    cout <<n<<" time: " << chrono::duration_cast<chrono::microseconds>(end - start).count()
+    << " μs" << endl;
+      file<<chrono::duration_cast<chrono::microseconds>(end - start).count()<<endl;
+      n+=200;
     }
-  }while (shape !='q');
+  }while (shape !='q' && n<=10000);
   return 0;
 }

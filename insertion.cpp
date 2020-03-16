@@ -1,6 +1,7 @@
 #include "generator.h"
 #include <iostream>
 #include <chrono>
+#include <fstream>
 
 using namespace std;
 
@@ -24,16 +25,17 @@ void insertion(int tab[], int n)
 
 int main()
 {
-  const int n=10000;
+  int n=1000;
   char shape;
-  int numbers[n];
+  int numbers[10000];
+  fstream file;
 
+  cin>>shape;
+  file.open("insertion.txt", ios::out);
   do
   {
-    cin>>shape;
-
-    if(shape!='q')
-    {
+    // if(shape!='q')
+    // {
       mgenerate(numbers, n, shape);
 
       /*cout<<"generated: ";
@@ -50,9 +52,12 @@ int main()
           cout << numbers[i] <<" ";
       cout<<endl;*/
 
-      cout << "Elapsed time: " << chrono::duration_cast<chrono::milliseconds>(end - start).count()
-  	<< " ms" << endl;
-    }
-  }while (shape !='q');
+    //   cout <<n<<" elements, " << chrono::duration_cast<chrono::microseconds>(end - start).count()
+  	// << " μs" << endl;
+    file<<chrono::duration_cast<chrono::microseconds>(end - start).count()<<endl;
+    n+=200;
+    // }
+  }while (shape !='q' && n<=10000);
+  file.close();
   return 0;
 }
