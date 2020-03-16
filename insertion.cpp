@@ -4,7 +4,7 @@
 
 using namespace std;
 
-int* insertion(int tab[], int n)
+void insertion(int tab[], int n)
 {
   int temp, j;
 
@@ -19,7 +19,6 @@ int* insertion(int tab[], int n)
     }
     tab[j+1]=temp;
   }
-  return tab;
 }
 
 
