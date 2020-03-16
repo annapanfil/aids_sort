@@ -4,46 +4,44 @@
 
 using namespace std;
 
-int* mgenerate(int* numbers, int n, char shape)
+void mgenerate(int* numbers, int n, char shape)
 {
   srand(time(NULL));
   switch(shape)
   {
     case 'r':
       for(int i=0; i<n;i++)
-        numbers[i] = rand() % 100;
+        numbers[i] = rand() % 1000000;
       break;
 
     case 'c':
       int number;
-      number = rand() % 100;
+      number = rand() % 1000;
       for(int i=0; i<n;i++)
         numbers[i]=number;
       break;
 
     case 'a':
-      numbers[0]= rand() % 100;
+      numbers[0]= rand() % 1000;
       for (int i=1; i<n;i++)
-        numbers[i]=rand() % 30 + numbers[i-1];
+        numbers[i]=rand() % 300 + numbers[i-1];
       break;
 
     case 'd':
-      numbers = mgenerate(numbers, n, 'a');
+      mgenerate(numbers, n, 'a');
       reverse(numbers, numbers+n);
       break;
 
     case 'v':
-      numbers = mgenerate(numbers, n, 'a');
+      mgenerate(numbers, n, 'a');
       reverse(numbers, numbers+int(n/2)+1);
       break;
   }
-
-  return numbers;
 }
 
 // int main()
 // {
-//   const int n=9;
+//   const int n=100;
 //   char shape;
 //   int numbers[n];
 //
