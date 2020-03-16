@@ -4,27 +4,48 @@
 
 using namespace std;
 
-void insertion(int tab[], int n)
-{
-  int temp, j;
-
-  for (int i=1; i<n;i++)
+void heapify(int tab[], int parent, int heapsize)
   {
-    temp = tab[i];
-    j=i-1;
-    while (j>=0 && tab[j]>temp)
+    int l = 2*parent+1, r = 2*parent+2, largest;
+
+    if(l<heapsize && tab[l]>tab[parent])
+      largest = l;
+    else
+      largest = parent;
+    if(r<heapsize && tab[r]>tab[largest])
+      largest = r;
+
+    if (largest!=parent)
     {
-      tab[j+1]=tab[j];
-      j--;
+      swap(tab[largest], tab[parent]);
+      heapify(tab, largest, heapsize);
     }
-    tab[j+1]=temp;
+
+  }
+
+void build_heap(int tab[], int n)
+  {
+    for(int i=n/2-1; i>=0; i--)
+      heapify(tab, i, n);
+  }
+
+void heap(int tab[], int heapsize)
+{
+  build_heap(tab, heapsize);
+
+  for(int i=heapsize-1; i>0; i--)
+  {
+    swap(tab[0], tab[i]);
+    heapsize--;
+    heapify(tab, 0, heapsize);
   }
 }
 
 
 int main()
 {
-  const int n=10000;
+  const int n = 100000;
+  // int numbers[7]={2,5,1,3,6,7,4};
   char shape;
   int numbers[n];
 
@@ -42,7 +63,7 @@ int main()
       cout<<endl;*/
 
       auto start = chrono::steady_clock::now();
-      insertion(numbers, n);
+      heap(numbers, n);
       auto end = chrono::steady_clock::now();
 
       /*cout<<"sorted: ";
