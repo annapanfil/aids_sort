@@ -5,34 +5,71 @@
 
 using namespace std;
 /*Funkcja dopisuje do pliku czas w jakim dany algorytm sortowania posortuje tablice*/
-void exportDataToFile(int* arr, int n, void (*sort)(int* arr, int n), string filename, int flag=0) {
-	ofstream myfile(filename,ofstream::app);
+void exportDataToFile(int* arr, int n, void (*sort)(int* arr, int n), void (*generateArray)(int* arr, int n, char shape), char shape, string filename, int probes = 5) {
+	ofstream myfile(filename, ofstream::app);
+	double time = 0;
+
+	for (int prob = 0; prob < probes; prob++) {
+		mgenerate(arr, n, shape);
+
+		auto start = chrono::high_resolution_clock::now();
+		sort(arr, n);
+		auto stop = chrono::high_resolution_clock::now();
+		auto duration = chrono::duration_cast<chrono::microseconds>(stop - start);
+		time += duration.count();
+	}
+
+	time /= probes;
+
+	if (myfile.is_open())
+	{
+		myfile << time << endl;
+	}
+	else cout << "Unable to open file";
+	
+}
+// overloading
+void exportDataToFile(int* arr, int n, void (*sort)(int* arr,int low, int n), void (*generateArray)(int* arr, int n, char shape), char shape, string filename, int probes = 5) {
+	ofstream myfile(filename, ofstream::app);
+	double time = 0;
+
+	for (int prob = 0; prob < probes; prob++) {
+		mgenerate(arr, n, shape);
+
+		auto start = chrono::high_resolution_clock::now();
+		sort(arr,0 ,n-1);
+		auto stop = chrono::high_resolution_clock::now();
+		auto duration = chrono::duration_cast<chrono::microseconds>(stop - start);
+		time += duration.count();
+	}
+
+	time /= probes;
+
+	if (myfile.is_open())
+	{
+		myfile << time << endl;
+	}
+	else cout << "Unable to open file";
+
+}
+
+
+string DataToString(int* arr, int n, void (*sort)(int* arr, int n)) {
 
 	auto start = chrono::high_resolution_clock::now();
 	sort(arr, n);
 	auto stop = chrono::high_resolution_clock::now();
 	auto duration = chrono::duration_cast<chrono::microseconds>(stop - start);
-		
-	if (myfile.is_open())
-	{
-		if (flag != 0) myfile << n << "\t" << duration.count() << endl;
-		else myfile << duration.count() << endl;
-	}
-	else cout << "Unable to open file";
+	return (to_string(duration.count())+ "\t");
+
 }
 
-void exportDataToFile(int* arr, int n, void (*sort)(int* arr, int low, int n), string filename,int flag=0) {
+void stringToFile(string message, string filename) {
 	ofstream myfile(filename, ofstream::app);
-
-	auto start = chrono::high_resolution_clock::now();
-	sort(arr, 0, n-1);
-	auto stop = chrono::high_resolution_clock::now();
-	auto duration = chrono::duration_cast<chrono::microseconds>(stop - start);
 
 	if (myfile.is_open())
 	{
-		if (flag != 0) myfile << n << "\t" << duration.count() << endl;
-		else myfile << duration.count() << endl;
+		myfile << message << endl;
 	}
 	else cout << "Unable to open file";
 }
