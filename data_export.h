@@ -4,7 +4,7 @@
 #include <string>
 
 using namespace std;
-/*Funkcja dopisuje do pliku czas w jakim dany algorytm sortowania posortuje tablice*/
+/*FUnkcja stosuje dany algorytm dan¹ iloœæ razy (int probes), a nastêpnie uœrednia wynik i dopisuje go do pliku*/
 void exportDataToFile(int* arr, int n, void (*sort)(int* arr, int n), void (*generateArray)(int* arr, int n, char shape), char shape, string filename, int probes = 5) {
 	ofstream myfile(filename, ofstream::app);
 	double time = 0;
