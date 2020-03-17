@@ -5,7 +5,7 @@
 
 using namespace std;
 /*Funkcja dopisuje do pliku czas w jakim dany algorytm sortowania posortuje tablice*/
-void exportDataToFile(int* arr, int n, void (*sort)(int* arr, int n), char* filename) {
+void exportDataToFile(int* arr, int n, void (*sort)(int* arr, int n), string filename, int flag=0) {
 	ofstream myfile(filename,ofstream::app);
 
 	auto start = chrono::high_resolution_clock::now();
@@ -15,12 +15,13 @@ void exportDataToFile(int* arr, int n, void (*sort)(int* arr, int n), char* file
 		
 	if (myfile.is_open())
 	{
-		myfile << n << "\t" << duration.count() << endl;
+		if (flag != 0) myfile << n << "\t" << duration.count() << endl;
+		else myfile << duration.count() << endl;
 	}
 	else cout << "Unable to open file";
 }
 
-void exportDataToFile(int* arr, int n, void (*sort)(int* arr, int low, int n), char* filename) {
+void exportDataToFile(int* arr, int n, void (*sort)(int* arr, int low, int n), string filename,int flag=0) {
 	ofstream myfile(filename, ofstream::app);
 
 	auto start = chrono::high_resolution_clock::now();
@@ -30,7 +31,8 @@ void exportDataToFile(int* arr, int n, void (*sort)(int* arr, int low, int n), c
 
 	if (myfile.is_open())
 	{
-		myfile << n << "\t" << duration.count() << endl;
+		if (flag != 0) myfile << n << "\t" << duration.count() << endl;
+		else myfile << duration.count() << endl;
 	}
 	else cout << "Unable to open file";
 }
