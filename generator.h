@@ -10,7 +10,6 @@ void mgenerate(int* numbers, int n, char shape)
   n - jej rozmiar
   shape - r-random, a-ascending, d-descending, c-constant, v-vshaped, A-Ashaped
   */
-  srand(time(NULL));
   int half = floor(n/2);
 
   switch(shape)
