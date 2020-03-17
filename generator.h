@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <iostream>
+#include <math.h>
 
 using namespace std;
 
@@ -7,9 +8,11 @@ void mgenerate(int* numbers, int n, char shape)
 {
   /*numbers - wskażnik do tablicy, w której mają pojawić się liczby
   n - jej rozmiar
-  shape - r-random, a-ascending, d-descending, c-constant, v-vshaped
+  shape - r-random, a-ascending, d-descending, c-constant, v-vshaped, A-Ashaped
   */
   srand(time(NULL));
+  int half = floor(n/2);
+
   switch(shape)
   {
     case 'r':
@@ -36,8 +39,13 @@ void mgenerate(int* numbers, int n, char shape)
       break;
 
     case 'v':
-      mgenerate(numbers, n, 'a');
-      reverse(numbers, numbers+int(n/2)+1);
+      mgenerate(numbers, half, 'd');
+      mgenerate(&numbers[half], n-half, 'a');
+      break;
+
+    case 'A':
+      mgenerate(numbers, half, 'a');
+      mgenerate(&numbers[half], n-half, 'd');
       break;
   }
 }
