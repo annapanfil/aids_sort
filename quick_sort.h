@@ -5,8 +5,8 @@ using namespace std;
 int partition(int* tab, int left, int right)
 {
   //RÓŻNE MOŻLIWOŚCI WYBORU PIVOTA
-  int choice = int((left+right)/2);
-  // int choice = right;
+  // int choice = int((left+right)/2);
+  int choice = right;
   // int choice = rand()%(right-left + 1) + left;
 
   int piv = tab[choice]; //element, z którym porównujemy
@@ -39,9 +39,7 @@ void quick(int* tab, int left, int right)
   {
     //podziel tablicę na mniejsze części i posortuj je
     int cut = partition(tab, left, right);
-    if(right-left+1 == 2) //przy 2-elem. tablicy tnie po środku
-      cut = left;
-    quick(tab, left, cut);
+    quick(tab, left, cut-1);
     quick(tab, cut+1, right);
   }
 }
