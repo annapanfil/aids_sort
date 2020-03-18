@@ -1,3 +1,6 @@
+#include <algorithm>
+using namespace std;
+
 void heapify(int* tab, int parent, int heapsize)
   {
     //uporządkuj rodzica i jego potomków
