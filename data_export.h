@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "generator.h"
 
 using namespace std;
 /*Funkcja dopisuje do pliku czas w jakim dany algorytm sortowania posortuje tablice*/
@@ -26,7 +27,7 @@ void exportDataToFile(int* arr, int n, void (*sort)(int* arr, int n), void (*gen
 		myfile << time << endl;
 	}
 	else cout << "Unable to open file";
-	
+
 }
 // overloading
 void exportDataToFile(int* arr, int n, void (*sort)(int* arr,int low, int n), void (*generateArray)(int* arr, int n, char shape), char shape, string filename, int probes = 5) {

@@ -16,7 +16,7 @@ void mgenerate(int* numbers, int n, char shape)
   {
     case 'r':
       for(int i=0; i<n;i++)
-        numbers[i] = rand() % 1000000;
+        numbers[i] = rand() % 10;
       break;
 
     case 'c':
