@@ -28,7 +28,7 @@ int main()
 
 			int* numbers = new int[i];
 			//exportDataToFile(numbers, i, &selectionSort, &mgenerate, shapes[shape], filenames[0], 5);
-			exportDataToFile(numbers, i, &quick, &mgenerate, 'r', "data/quicksort_middle.txt", 5);
+			exportDataToFile(numbers, i, &quickSort, &mgenerate, 'A', "data/quicksort_middle.txt", 5);
 			//exportDataToFile(numbers, i, &insertion, &mgenerate, shapes[shape], filenames[2], 5);
 			//exportDataToFile(numbers, i, &heap, &mgenerate, shapes[shape], filenames[3], 5);
 
